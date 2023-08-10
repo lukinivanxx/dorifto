@@ -1,1 +1,2 @@
 # dorifto
+# figuring out stuff
