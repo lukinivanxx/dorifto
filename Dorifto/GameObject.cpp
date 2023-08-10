@@ -4,7 +4,7 @@ void GameObject::initVariables()
 {
 	height = 30.f; // Meters
 	width = 30.f; // Meters
-	force = 180.f; // Newtons
+	force = 50.f; // Newtons
 	mass = height * width * density * lengthUnits;
 	std::cout << "mass: " << mass << "\n";
 	speedX = 0.f, speedY = 0.f;
