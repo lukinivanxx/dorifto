@@ -18,11 +18,11 @@ private:
 	//Fixed parameters
 	sf::RectangleShape shape;
 	float height, width, density = 10.f;
-	float lengthUnits = 0.01f;
+	float lengthUnits = 1.f;
 	//Parameters
 	float x, y; // coords of the centre of mass
 	float mass;
-	float muCoefficient = 0.01f;
+	float muCoefficient = 0.1f;
 	float speedX, speedY; // projections of the speed on the standart cartesian axes
 	float normalForce;
 	float frictionX, frictionY;
@@ -37,9 +37,9 @@ private:
 	//Updaters
 	void updateAccel();
 	void updateSpeed();
-	void updateInput();
+	void updateInput(float wheelVal);
 	void updateFriction();
-	void updateForce();
+	void updateForce(float wheelVal);
 	void updatePosition();
 public:
 	//Constructors / Destructor
@@ -58,7 +58,7 @@ public:
 	float getResultingForceY();
 
 	//Public funcs
-	void update();
+	void update(float wheelVal);
 	void render(sf::RenderTarget* target);
 };
 

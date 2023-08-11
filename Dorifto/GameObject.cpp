@@ -2,9 +2,9 @@
 
 void GameObject::initVariables()
 {
-	height = 30.f; // Meters
-	width = 30.f; // Meters
-	force = 50.f; // Newtons
+	height = 10.f; // Meters
+	width = 10.f; // Meters
+	force = 100.f; // Newtons
 	mass = height * width * density * lengthUnits;
 	std::cout << "mass: " << mass << "\n";
 	speedX = 0.f, speedY = 0.f;
@@ -31,23 +31,19 @@ void GameObject::updateAccel()
 
 void GameObject::updateSpeed()
 {
-	speedX = std::abs(speedX + accelX) <= 0.5f ? 0.f : speedX + accelX;
-	speedY = std::abs(speedY + accelY) <= 0.5f ? 0.f : speedY + accelY;
+	speedX += accelX;
+	speedY += accelY;
 }
 
-void GameObject::updateInput()
+void GameObject::updateInput(float wheelVal)
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-		resultingForceX += -force;
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-		resultingForceX += force;
-	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-		resultingForceY += -force;
+		resultingForceX += force * (1 - wheelVal / 683.f);
+		resultingForceY += force * wheelVal / 683.f;
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-		resultingForceY += force;
+		resultingForceX += -force * (1 - wheelVal / 683.f);
+		resultingForceY += -force * wheelVal / 683.f;
 	}
 }
 
@@ -59,11 +55,11 @@ void GameObject::updateFriction()
 	resultingForceY += frictionY;
 }
 
-void GameObject::updateForce()
+void GameObject::updateForce(float wheelVal)
 {
 	resultingForceX = 0.f, resultingForceY = 0.f;
 	
-	updateInput();
+	updateInput(wheelVal);
 	updateFriction();
 
 	/*std::cout << "Accel: " << accelX << " " << accelY << "\n";*/
@@ -121,9 +117,9 @@ float GameObject::getResultingForceY()
 	return resultingForceY;
 }
 
-void GameObject::update()
+void GameObject::update(float wheelVal)
 {
-	updateForce();
+	updateForce(wheelVal);
 	updateAccel();
 	updateSpeed();
 	updatePosition();
