@@ -30,6 +30,10 @@ private:
 	float accelX, accelY;
 	float resultingForceX, resultingForceY;
 
+	float carForwardAngle;
+
+	float carWheelAngle; // 
+
 	//Private funcs
 	void initVariables();
 	void initShape();
@@ -37,9 +41,9 @@ private:
 	//Updaters
 	void updateAccel();
 	void updateSpeed();
-	void updateInput(float wheelVal);
+	void updateInput();
 	void updateFriction();
-	void updateForce(float wheelVal);
+	void updateForce();
 	void updatePosition();
 public:
 	//Constructors / Destructor

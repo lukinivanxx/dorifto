@@ -1,9 +1,7 @@
-﻿  Dorifto.cpp
-  GameEngine.cpp
-  GameObject.cpp
+﻿  GameEngine.cpp
   Создание кода
-  2 of 166 functions ( 1.2%) were compiled, the rest were copied from previous compilation.
+  0 of 166 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+    0 functions had inline decision re-evaluated but remain unchanged
   Создание кода завершено
   Dorifto.vcxproj -> D:\vs2022_code\proj\Dorifto\Release\Dorifto.exe

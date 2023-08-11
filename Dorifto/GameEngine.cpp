@@ -3,8 +3,6 @@
 void GameEngine::initVariables()
 {
 	window = nullptr;
-
-	wheelValue = 683.f;
 }
 
 void GameEngine::initWindow()
@@ -81,18 +79,12 @@ void GameEngine::updateText()
 	this->uiText.setString(ss.str());
 }
 
-void GameEngine::updateWheel()
-{
-	wheelValue =  mousePosView.x - static_cast<float>(videoMode.width / 2);
-	std::cout << "wheelValue: " << wheelValue << "\n";
-}
-
 void GameEngine::update()
 {
 	pollEvents();
 	updateText();
-	updateWheel();
-	obj.update(wheelValue);
+	/*updateWheel();*/
+	obj.update();
 
 	updateMousePos();
 }

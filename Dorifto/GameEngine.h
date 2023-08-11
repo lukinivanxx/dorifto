@@ -14,8 +14,8 @@ private:
 	sf::Vector2i mousePosWindow;
 	sf::Vector2f mousePosView;
 	//Game logic
-	float wheelValue;
-	float deadZone;
+	/*float wheelValue;*/
+	//float deadZone;
 
 	//Game objects
 	GameObject obj;
@@ -41,7 +41,7 @@ public:
 	void pollEvents();
 	void updateMousePos();
 	void updateText();
-	void updateWheel();
+	//void updateWheel();
 	void update();
 
 	void renderText(sf::RenderTarget* target);

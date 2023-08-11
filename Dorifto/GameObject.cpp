@@ -35,7 +35,7 @@ void GameObject::updateSpeed()
 	speedY += accelY;
 }
 
-void GameObject::updateInput(float wheelVal)
+void GameObject::updateInput()
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
 		resultingForceX += force * (1 - wheelVal / 683.f);
@@ -55,11 +55,11 @@ void GameObject::updateFriction()
 	resultingForceY += frictionY;
 }
 
-void GameObject::updateForce(float wheelVal)
+void GameObject::updateForce()
 {
 	resultingForceX = 0.f, resultingForceY = 0.f;
 	
-	updateInput(wheelVal);
+	updateInput();
 	updateFriction();
 
 	/*std::cout << "Accel: " << accelX << " " << accelY << "\n";*/
