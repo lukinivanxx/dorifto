@@ -2,6 +2,7 @@
 
 #include<iostream>
 #include<sstream>
+#include<vector>
 
 #include<SFML/Graphics.hpp>
 #include<SFML/Network.hpp>
@@ -17,7 +18,11 @@ class GameObject
 private:
 	//Fixed parameters
 	sf::RectangleShape shape;
+	sf::RectangleShape wheel;
+	std::vector<sf::RectangleShape> frontWheels;
+	std::vector<sf::RectangleShape> rearWheels;
 	float height, width, density = 10.f;
+	float wheelHeight, wheelWidth;
 	float lengthUnits = 1.f;
 	//Parameters
 	float x, y; // coords of the centre of mass
@@ -26,17 +31,17 @@ private:
 	float speedX, speedY; // projections of the speed on the standart cartesian axes
 	float normalForce;
 	float frictionX, frictionY;
-	float force;
+	float force; // parameter of car engine
 	float accelX, accelY;
 	float resultingForceX, resultingForceY;
 
-	float carForwardAngle;
+	float carForwardAngle; // the rotation of the car respectively to the grid
 
-	float carWheelAngle; // 
+	float carWheelAngle; // 30 degrees on average
 
 	//Private funcs
 	void initVariables();
-	void initShape();
+	void initShapes();
 
 	//Updaters
 	void updateAccel();
@@ -62,7 +67,7 @@ public:
 	float getResultingForceY();
 
 	//Public funcs
-	void update(float wheelVal);
+	void update();
 	void render(sf::RenderTarget* target);
 };
 

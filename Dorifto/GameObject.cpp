@@ -2,8 +2,14 @@
 
 void GameObject::initVariables()
 {
-	height = 10.f; // Meters
-	width = 10.f; // Meters
+	height = 30.f; // Meters
+	width = 100.f; // Meters
+
+	x = width / 2;
+	y = height / 2;
+
+	wheelHeight = 5.f;
+	wheelWidth = 20.f;
 	force = 100.f; // Newtons
 	mass = height * width * density * lengthUnits;
 	std::cout << "mass: " << mass << "\n";
@@ -16,11 +22,26 @@ void GameObject::initVariables()
 	resultingForceX = 0.f, resultingForceY = 0.f;
 }
 
-void GameObject::initShape()
+void GameObject::initShapes()
 {
 	shape.setFillColor(sf::Color::White);
 	shape.setSize(sf::Vector2f(width, height));
-	shape.setPosition(sf::Vector2f(0.f, 0.f));
+	shape.setOrigin(sf::Vector2f(width / 2, height / 2));
+	shape.setPosition(sf::Vector2f(x, y));
+
+	wheel.setFillColor(sf::Color::Red);
+	wheel.setSize(sf::Vector2f(wheelWidth, wheelHeight));
+	wheel.setOrigin(sf::Vector2f(wheelWidth / 2, wheelHeight / 2));
+	wheel.setPosition(sf::Vector2f(x - width / 2 + wheelWidth / 2 + 3, y - height / 2 + wheelHeight / 2));
+	rearWheels.push_back(wheel);
+	wheel.setPosition(sf::Vector2f(x - width / 2 + wheelWidth / 2 + 3, y + height / 2 - wheelHeight / 2));
+	rearWheels.push_back(wheel);
+
+	wheel.setPosition(sf::Vector2f(x + width / 2 - wheelWidth / 2 - 3, y - height / 2 + wheelHeight / 2));
+	frontWheels.push_back(wheel);
+	wheel.setPosition(sf::Vector2f(x + width / 2 - wheelWidth / 2 - 3, y + height / 2 - wheelHeight / 2));
+	frontWheels.push_back(wheel);
+
 }
 
 void GameObject::updateAccel()
@@ -37,14 +58,14 @@ void GameObject::updateSpeed()
 
 void GameObject::updateInput()
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-		resultingForceX += force * (1 - wheelVal / 683.f);
-		resultingForceY += force * wheelVal / 683.f;
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-		resultingForceX += -force * (1 - wheelVal / 683.f);
-		resultingForceY += -force * wheelVal / 683.f;
-	}
+	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+	//	resultingForceX += force * (1 - wheelVal / 683.f);
+	//	resultingForceY += force * wheelVal / 683.f;
+	//}
+	//else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+	//	resultingForceX += -force * (1 - wheelVal / 683.f);
+	//	resultingForceY += -force * wheelVal / 683.f;
+	//}
 }
 
 void GameObject::updateFriction()
@@ -74,13 +95,13 @@ void GameObject::updatePosition()
 GameObject::GameObject()
 {
 	initVariables();
-	initShape();
+	initShapes();
 }
 
 GameObject::GameObject(float density) : density(density)
 {
 	initVariables();
-	initShape();
+	initShapes();
 }
 
 GameObject::~GameObject()
@@ -117,9 +138,9 @@ float GameObject::getResultingForceY()
 	return resultingForceY;
 }
 
-void GameObject::update(float wheelVal)
+void GameObject::update()
 {
-	updateForce(wheelVal);
+	updateForce();
 	updateAccel();
 	updateSpeed();
 	updatePosition();
@@ -128,4 +149,6 @@ void GameObject::update(float wheelVal)
 void GameObject::render(sf::RenderTarget* target)
 {
 	target->draw(shape);
+	for (auto& x : rearWheels) target->draw(x);
+	for (auto& x : frontWheels) target->draw(x);
 }
