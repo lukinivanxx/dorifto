@@ -21,13 +21,13 @@ private:
 	sf::RectangleShape wheel;
 	std::vector<sf::RectangleShape> frontWheels;
 	std::vector<sf::RectangleShape> rearWheels;
-	float height, width, density = 10.f;
+	float height, width, density;
 	float wheelHeight, wheelWidth;
-	float lengthUnits = 1.f;
+	float lengthUnits;
 	//Parameters
 	float x, y; // coords of the centre of mass
 	float mass;
-	float muCoefficient = 0.1f;
+	float muCoefficient;
 	float speedX, speedY; // projections of the speed on the standart cartesian axes
 	float normalForce;
 	float frictionX, frictionY;
@@ -36,6 +36,7 @@ private:
 	float resultingForceX, resultingForceY;
 
 	float carForwardAngle; // the rotation of the car respectively to the grid
+	float carRotationIncrement;
 
 	float carWheelAngle; // 30 degrees on average
 
